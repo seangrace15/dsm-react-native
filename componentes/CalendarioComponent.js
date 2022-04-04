@@ -4,7 +4,7 @@ import { SafeAreaView, FlatList } from 'react-native';
 function Calendario(props) {
     const renderCalendarioItem = ({item, index}) => {
         return (
-            <ListItem key={index} bottomDivider>
+            <ListItem key={index} bottomDivider onPress={() => props.onPress(item.id)}>
                 <Avatar source={require('./imagenes/40Anos.png')} />
                 <ListItem.Content>
                     <ListItem.Title>{item.nombre}</ListItem.Title>
@@ -21,4 +21,5 @@ function Calendario(props) {
             />
         </SafeAreaView>
 ); }
+
 export default Calendario;
