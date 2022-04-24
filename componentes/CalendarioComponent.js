@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ListItem, Avatar } from 'react-native-elements';
 import { SafeAreaView, FlatList } from 'react-native';
-function Calendario(props) {
+import { EXCURSIONES } from './comun/excursiones';
+
+class Calendario extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            excursiones: EXCURSIONES
+        };
+    }
+
+    render(){
+
+    const { navigate } = this.props.navigation;    
+
     const renderCalendarioItem = ({item, index}) => {
         return (
-            <ListItem key={index} bottomDivider onPress={() => props.onPress(item.id)}>
+            <ListItem
+                key={index}
+                onPress={() => navigate('DetalleExcursion', { excursionId: item.id })}
+                bottomDivider>
                 <Avatar source={require('./imagenes/40Anos.png')} />
                 <ListItem.Content>
                     <ListItem.Title>{item.nombre}</ListItem.Title>
                     <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
                 </ListItem.Content>
-            </ListItem>
-); };
+            </ListItem> 
+        );
+    };
+
     return (
         <SafeAreaView>
-            <FlatList
-                data={props.excursiones}
+            <FlatList 
+                data={this.state.excursiones}
                 renderItem={renderCalendarioItem}
                 keyExtractor={item => item.id.toString()}
             />
         </SafeAreaView>
-); }
+    );
+    }
+}
 
 export default Calendario;
