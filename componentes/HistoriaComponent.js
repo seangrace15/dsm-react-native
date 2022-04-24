@@ -2,6 +2,7 @@ import { HISTORIA, ACTIVIDADES } from './comun/quienessomos';
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
+import { baseUrl,colorGaztaroaOscuro,colorGaztaroaClaro } from './comun/comun';
 
 function RenderHistoria(props) {
 

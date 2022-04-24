@@ -6,6 +6,8 @@ import { ListItem, Avatar } from 'react-native-elements';
 import { Card } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { baseUrl,colorGaztaroaOscuro,colorGaztaroaClaro } from './comun/comun';
+
 class QuienesSomos extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ class QuienesSomos extends Component {
                 <ListItem
                     key={index}
                     bottomDivider>
-                    <Avatar source={require('./imagenes/40Anos.png')} />
+                    <Avatar source={{uri: baseUrl + item.imagen}} />
                     <ListItem.Content>
                         <ListItem.Title>{item.nombre}</ListItem.Title>
                         <ListItem.Subtitle>{item.descripcion}</ListItem.Subtitle>
