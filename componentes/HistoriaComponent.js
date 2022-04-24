@@ -1,4 +1,4 @@
-import { HISTORIA, ACTIVIDADES } from './comun/quienessomos';
+import { HISTORIA } from './comun/quienessomos';
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';

@@ -13,6 +13,8 @@ import { Icon } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { DrawerActions } from '@react-navigation/native';
 import { baseUrl,colorGaztaroaOscuro,colorGaztaroaClaro } from './comun/comun';
+import { connect } from 'react-redux';
+import { fetchExcursiones, fetchComentarios, fetchCabeceras, fetchActividades } from '../redux/ActionCreators';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,6 +41,21 @@ const styles = StyleSheet.create({
     height: 60
   }
 });
+const mapStateToProps = state => {
+  return {
+    excursiones: state.excursiones,
+    comentarios: state.comentarios,
+    cabeceras: state.cabeceras,
+    actividades: state.actividades
+  }
+}
+const mapDispatchToProps = dispatch => ({
+  fetchExcursiones: () => dispatch(fetchExcursiones()),
+  fetchComentarios: () => dispatch(fetchComentarios()),
+  fetchCabeceras: () => dispatch(fetchCabeceras()),
+  fetchActividades: () => dispatch(fetchActividades()),
+})
+
 
 function CustomDrawerContent(props) {
   return (
@@ -139,7 +156,7 @@ function QuienesSomosNavegador({navigation}) {
       screenOptions={{
         headerMode: 'screen',
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: colorGaztaroaClaro },
+        headerStyle: { backgroundColor: colorGaztaroaOscuro },
         headerTitleStyle: { color: '#fff' },
         headerLeft: () => (<Icon name="menu" size={28} color= 'white' onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer()) }/>),
       }}
@@ -216,9 +233,14 @@ function DrawerNavegador() {
 }
 
 class Campobase extends Component {
+  componentDidMount() {
+    this.props.fetchExcursiones();
+    this.props.fetchComentarios();
+    this.props.fetchCabeceras();
+    this.props.fetchActividades();
+  }
 
   render() {
-
     return (
       <NavigationContainer>
         <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
@@ -229,4 +251,4 @@ class Campobase extends Component {
   }
 }
 
-export default Campobase;
+export default connect(mapStateToProps, mapDispatchToProps)(Campobase);
