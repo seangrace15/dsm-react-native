@@ -78,7 +78,7 @@ function CustomDrawerContent(props) {
 function CalendarioNavegador({navigation}) {
   return (
     <Stack.Navigator
-      initialRouteName="Calendario"
+      initialRouteName="Calendario_stack"
       screenOptions={{
         headerMode: 'float',
         headerTintColor: '#fff',
@@ -88,7 +88,7 @@ function CalendarioNavegador({navigation}) {
       }}
     >
       <Stack.Screen
-        name="Calendario"
+        name="Calendario_stack"
         component={Calendario}
         options={{
           title: 'Calendario Gaztaroa',
@@ -99,6 +99,7 @@ function CalendarioNavegador({navigation}) {
         component={DetalleExcursion}
         options={{
           title: 'Detalle Excursión',
+          headerLeft: () => (<Icon name={'chevron-left'} size={28} color= 'white' onPress={ () => navigation.navigate('Calendario_stack') }/>),
         }}
       />
     </Stack.Navigator>
@@ -130,7 +131,7 @@ function HomeNavegador({navigation}) {
 function ContactoNavegador({navigation}) {
   return (
     <Stack.Navigator
-      initialRouteName="Contacto"
+      initialRouteName="Contacto_stack"
       screenOptions={{
         headerMode: 'screen',
         headerTintColor: '#fff',
@@ -140,7 +141,7 @@ function ContactoNavegador({navigation}) {
       }}
     >
       <Stack.Screen
-        name="Contacto"
+        name="Contacto_stack"
         component={Contacto}
         options={{
           title: 'Contacto',
