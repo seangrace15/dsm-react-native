@@ -6,7 +6,6 @@ import { comentarios } from './comentarios';
 import { cabeceras } from './cabeceras';
 import { actividades } from './actividades';
 import { favoritos } from './favoritos';
-
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -14,7 +13,7 @@ export const ConfigureStore = () => {
             comentarios,
             cabeceras,
             actividades,
-            favoritos
+            favoritos,
         }),
         applyMiddleware(thunk, logger)
     );

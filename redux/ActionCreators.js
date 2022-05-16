@@ -2,7 +2,8 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../componentes/comun/comun';
 
 export const fetchComentarios = () => (dispatch) => {
-    return fetch(baseUrl + 'comentarios')
+    return fetch(baseUrl+'comentarios?pageSize=300'
+    )
         .then(response => {
             if (response.ok) {
                 return response;
@@ -17,7 +18,9 @@ export const fetchComentarios = () => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(comentarios => dispatch(addComentarios(comentarios)))
+        .then(function(comentarios) {
+            dispatch(addComentarios(comentarios.documents));
+        } )
         .catch(error => dispatch(comentariosFailed(error.message)));
 };
 
@@ -32,10 +35,8 @@ export const addComentarios = (comentarios) => ({
 });
 
 export const fetchExcursiones = () => (dispatch) => {
-
-    dispatch(excursionesLoading());
-
-    return fetch(baseUrl + 'excursiones')
+    return fetch(baseUrl+'excursiones?pageSize=300'
+    )
         .then(response => {
             if (response.ok) {
                 return response;
@@ -50,7 +51,9 @@ export const fetchExcursiones = () => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(excursiones => dispatch(addExcursiones(excursiones)))
+        .then(function(comentarios) {
+            dispatch(addExcursiones(comentarios.documents));
+        } )
         .catch(error => dispatch(excursionesFailed(error.message)));
 };
 
@@ -72,7 +75,8 @@ export const fetchCabeceras = () => (dispatch) => {
 
     dispatch(cabecerasLoading());
 
-    return fetch(baseUrl + 'cabeceras')
+    return fetch(baseUrl+'cabeceras?pageSize=300'
+    )
         .then(response => {
             if (response.ok) {
                 return response;
@@ -87,7 +91,9 @@ export const fetchCabeceras = () => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(cabeceras => dispatch(addCabeceras(cabeceras)))
+        .then(function(cabeceras) {
+            dispatch(addCabeceras(cabeceras.documents));
+        } )
         .catch(error => dispatch(cabecerasFailed(error.message)));
 };
 
@@ -109,7 +115,8 @@ export const fetchActividades = () => (dispatch) => {
 
     dispatch(actividadesLoading());
 
-    return fetch(baseUrl + 'actividades')
+    return fetch(baseUrl+'actividades?pageSize=300'
+    )
         .then(response => {
             if (response.ok) {
                 return response;
@@ -124,8 +131,11 @@ export const fetchActividades = () => (dispatch) => {
                 throw errmess;
             })
         .then(response => response.json())
-        .then(actividades => dispatch(addActividades(actividades)))
+        .then(function(actividades) {
+            dispatch(addActividades(actividades.documents));
+        } )
         .catch(error => dispatch(actividadesFailed(error.message)));
+
 };
 
 export const actividadesLoading = () => ({
@@ -168,5 +178,19 @@ export const addComentario = (excursionId, valoracion, autor, comentario, dia) =
         comentario: comentario,
         autor: autor,
         dia: dia
+    },
+});
+
+export const userLogin = (userlogin) => ({
+    type: ActionTypes.USER_LOGIN,
+    payload: {
+        userlogin: userlogin
+    },
+});
+
+export const userLogout = () => ({
+    type: ActionTypes.USER_LOGOUT,
+    payload: {
+        userlogin: ''
     },
 });

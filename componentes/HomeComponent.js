@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { baseUrl, colorGaztaroaOscuro, colorGaztaroaClaro } from './comun/comun';
+import { baseUrl, baseUrlImg, colorGaztaroaOscuro, colorGaztaroaClaro } from './comun/comun';
 import { connect } from 'react-redux';
 import { IndicadorActividad } from './IndicadorActividadComponent';
 
@@ -33,16 +33,15 @@ function RenderItem(props) {
     }
 
     else {
-
-
+        console.log('iepeee: '+baseUrlImg + item.fields.imagen.stringValue)
         if (item != null) {
             return (
                 <Card>
-                    <Card.Title>{item.nombre}</Card.Title>
+                    <Card.Title>{item.fields.nombre.stringValue}</Card.Title>
                     <Card.Divider />
-                    <Card.Image source={{ uri: baseUrl + item.imagen }}></Card.Image>
+                    <Card.Image source={{ uri: baseUrlImg + item.fields.imagen.stringValue+'?alt=media' }}></Card.Image>
                     <Text style={{ margin: 20 }}>
-                        {item.descripcion}
+                        {item.fields.descripcion.stringValue}
                     </Text>
                 </Card>
             );
@@ -56,15 +55,16 @@ function RenderItem(props) {
 class Home extends Component {
 
     render() {
-
+        console.log('aaaa');
+        console.log(this.props.excursiones.excursiones);
         return (
             <ScrollView>
-                <RenderItem item={this.props.cabeceras.cabeceras.filter((cabecera) => cabecera.destacado)[0]} />
-                <RenderItem item={this.props.excursiones.excursiones.filter((excursion) => excursion.destacado)[0]}
+                <RenderItem item={this.props.cabeceras.cabeceras.filter((cabecera) => cabecera.fields.destacado)[0]} />
+                <RenderItem item={this.props.excursiones.excursiones.filter((excursion) => excursion.fields.destacado.booleanValue)[0]}
                     isLoading={this.props.excursiones.isLoading}
                     errMess={this.props.excursiones.errMess}
                 />
-                <RenderItem item={this.props.actividades.actividades.filter((actividad) => actividad.destacado)[0]} />
+                <RenderItem item={this.props.actividades.actividades.filter((actividad) => actividad.fields.destacado)[0]} />
             </ScrollView>
         );
     }
